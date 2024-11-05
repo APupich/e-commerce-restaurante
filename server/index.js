@@ -1,42 +1,60 @@
-// Importamos los módulos necesarios
 const express = require('express');
 const mysql = require('mysql2');
-const dotenv = require('dotenv');
-const apiRoutes = require('./routes/routes');
+require('dotenv').config()
 
-// Configuramos dotenv para cargar las variables de entorno desde el archivo .env
-dotenv.config();
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
-// Creamos la conexión con la base de datos usando las variables de entorno
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
 
-// Intentamos conectar con la base de datos
-db.connect((err) => {
-  if (err) {
-    console.error('Error al conectar a la base de datos:', err);
-    return;
-  }
-  console.log('Conectado a la base de datos MySQL');
-});
+const API = express();
+API.use(
+    express.json()
+);
 
-// Creamos la aplicación Express
-const app = express();
+const DB = mysql.createConnection({
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password : process.env.DB_PASSWORD, 
+    database : process.env.DB_NAME
+})
 
-// Usamos middleware para poder recibir datos JSON en las solicitudes
-app.use(express.json());
+DB.connect((err)=>{
+    if (err) {
+        console.error("Connect error: ",err);
+        return;
+    }
+    console.log("Conectado");
+})
+const PORT = 3000;
 
-// Configuramos las rutas de nuestra API
-app.use('/api', apiRoutes);
+API.get("/",(req,res)=>{
+    res.send("Hola pupi");
+})
 
-// Definimos el puerto en el que se ejecutará el servidor
-const PORT = process.env.PORT || 3000;
+API.get("/menu",(req,res)=>{
+    DB.query("CALL ListarMenuRestaurante(1);",(err,results)=>{
+        if (err) {
+            res.json({message:err.message});
+            return;
+        }
+        res.json(results[0]);
+    })
+})
 
-// Iniciamos el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en el puerto ${PORT}`);
+API.get("/menu/:category2",(req,res)=>{
+    let {category2} = req.params;
+    const category = capitalize(category2);
+    DB.query("CALL ListarPlatosPorCategoria(?);",
+        [category],(err,results)=>{
+        if (err) {
+            res.json({message:err.message});
+            return;
+        }
+        res.json(results[0]);
+    })
+})
+
+API.listen(PORT,()=>{
+    console.log("Listening port: ",PORT)
 });
