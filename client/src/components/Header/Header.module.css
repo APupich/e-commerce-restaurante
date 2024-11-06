@@ -1,0 +1,22 @@
+.header{
+  width: 100%;
+  height: 3rem;
+  background-color: white;
+  padding: .7rem;
+  display: flex;
+  justify-content: space-between;
+  img{
+    height: 100%;
+    width: auto;
+  }
+  .btn_menu{
+    display: grid;
+    place-items: center;
+    color: black;
+    font-size: 1.1rem;
+    transition: all .1s ease-in-out;
+  }
+  .btn_menu:hover{
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,8 @@
+main{
+	max-width: 100vw;
+	height: calc(100% - 3rem);
+	background-color: inherit;
+	overflow: hidden;
+	overflow-y: scroll;
+	scrollbar-width: none;
+}
