@@ -27,7 +27,16 @@ DB.connect((err)=>{
     console.log("Conectado");
 })
 const PORT = 3000;
-
+/**
+     .d8888b.   8888888888 88888888888 
+    d88P  Y88b  888            888     
+    888    888  888            888     
+    888         8888888        888     
+    888  88888  888            888     
+    888    888  888            888     
+    Y88b  d88P  888            888     
+    "Y8888P88   8888888888     888                               
+ */
 API.get("/",(req,res)=>{
     res.send("Hola pupi");
 })
@@ -66,6 +75,20 @@ API.get("/pedido/:date",(req,res)=>{
         res.json(results[0]);
     })
 })
+
+/**
+    8888888b.   .d88888b.   .d8888b. 88888888888 
+    888   Y88b d88P" "Y88b d88P  Y88b    888     
+    888    888 888     888 Y88b.         888     
+    888   d88P 888     888  "Y888b.      888     
+    8888888P"  888     888     "Y88b.    888     
+    888        888     888       "888    888     
+    888        Y88b. .d88P Y88b  d88P    888     
+    888         "Y88888P"   "Y8888P"     888 
+ */
+
+
+//API.post()
 API.post("/login",(req,res)=>{
     const {email,password} = req.body;
     DB.query("CALL login(?,?)",[email,password],(err,results)=>{
