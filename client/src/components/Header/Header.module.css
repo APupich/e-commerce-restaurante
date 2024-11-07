@@ -5,6 +5,8 @@
   padding: .7rem;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .08);
+  z-index: 1;
   img{
     height: 100%;
     width: auto;
@@ -14,6 +16,7 @@
     place-items: center;
     color: black;
     font-size: 1.1rem;
+    padding: 0 .3rem;
     transition: all .1s ease-in-out;
   }
   .btn_menu:hover{

@@ -1,0 +1,122 @@
+[
+    {
+      "id": 1,
+      "ref": "/banners/cards/580x250_ede01d9fff.jpg",
+      "desc": "La más deliciosa combinación de dos carnes, tomate, salsa parrillera, dos fetas de provoleta y la salsa argentina por excelencia “Salsa Criolla”! Esta propuesta única viene acompañada por un exquisito y nuevo pan de papa.",
+      "desc_btn": "Hacé click para obtener mas información sobre la promoción",
+      "title": "¡Nueva Grand Leyenda!",
+      "btn_enabled": true
+    },
+    {
+      "id": 2,
+      "ref": "/banners/cards/banner_580x250_5_1_a76a3019d6.jpg",
+      "desc": "Llegaron a McDonald's Argentina los personajes de #BT21 . Recibí un personaje con cada McCombo de 10 piezas de Chicken McNuggets.",
+      "desc_btn": "",
+      "title": "¡Conocé a los personajes de BT21!",
+      "btn_enabled": false
+    },
+    {
+      "id": 3,
+      "ref": "/banners/cards/Banner_APP_Desktop_9c5f098500.jpg",
+      "desc": "¿Ya descargaste la app?",
+      "desc_btn": "Descargala acá",
+      "title": "¡Beneficios en tus combos favoritos!",
+      "btn_enabled": true
+    },
+    {
+      "id": 4,
+      "ref": "/banners/cards/Banner_APP_WEB_Mc_Melt_580x250_1_1e4818517d.jpg",
+      "desc": "Llegó a McDonald's la nueva Bacon Cheddar McMelt, con mucho, muchísimo cheddar, che . Vení a probarla. Chequeadísimo que te va a encantar.",
+      "desc_btn": "Chequeala acá",
+      "title": "¡Nueva Bacon Cheddar McMelt!",
+      "btn_enabled": true
+    },
+    {
+      "id": 5,
+      "ref": "/banners/cards/BANNER_WEB_DESKTOP_SECUNDARIO_580x250_47174eb263.jpg",
+      "desc": "Llegaron los juguetes de Mario Kart 8 Deluxe, listos para jugar en Cajita Feliz.",
+      "desc_btn": "Ver más",
+      "title": "¡Prepárense para la carrera con Cajita Feliz!​",
+      "btn_enabled": true
+    },
+    {
+      "id": 6,
+      "ref": "/banners/cards/Banner_Web_GTTB_580x250_d8b448d740_a11dcbf8e7.jpg",
+      "desc": "Grand Tasty Turbo Bacon, una hamburguesa con tiras crujientes y sabrosas de bacon y bacon crispy picado",
+      "desc_btn": "Ver más",
+      "title": "Una locura de bacon",
+      "btn_enabled": true
+    },
+    {
+      "id": 7,
+      "ref": "/banners/cards/Banner_Web_Pedi_Retira_QR_580x250_0a21c3e50e.jpg",
+      "desc": "Adelantá tu pedido desde la app y retirá como quieras",
+      "desc_btn": "Ver más",
+      "title": "Disfrutá McDonald's a tu manera",
+      "btn_enabled": true
+    },
+    {
+      "id": 8,
+      "ref": "/banners/cards/Banners_Grand_Tasty_Nuevo_Pan_580x250_1_077af0d371.jpg",
+      "desc": "Puro Sabor, Sin Filtro.",
+      "desc_btn": "",
+      "title": "Grand Tasty Doble y Triple",
+      "btn_enabled": false
+    },
+    {
+      "id": 9,
+      "ref": "/banners/cards/Banners_Mc_Crispy_2023_WEB_Desktop_Secundario_580x250_260306807a.jpg",
+      "desc": "Probá la McCrispy Chicken en sus versiones Classic, Deluxe y Cheddar & Bacon.",
+      "desc_btn": "Ver más",
+      "title": "¡McCrispy Chicken con 100% pechuga de pollo!",
+      "btn_enabled": true
+    },
+    {
+      "id": 10,
+      "ref": "/banners/cards/BANNERS_WEB_24_Horas_bb2bd417e4.jpg",
+      "desc": "Encontrá aquí el local mas cercano para visitarnos después de las 00 Hs.",
+      "desc_btn": "ENCONTRÁ EL MÁS CERCANO",
+      "title": "Open 24 Hs.",
+      "btn_enabled": true
+    },
+    {
+      "id": 11,
+      "ref": "/banners/cards/inscribite_en_club_vip_automac_580x250_30e390c0f9.jpg",
+      "desc": "¡Inscribite y disfrutá de beneficios!",
+      "desc_btn": "Inscribite acá",
+      "title": "Club VIP AutoMac",
+      "btn_enabled": true
+    },
+    {
+      "id": 12,
+      "ref": "/banners/cards/Mc_Cafe_ue_DAG_Banner_1440x650_3cc41378a1.jpg",
+      "desc": "Simple y rico. Dejá de dar vueltas y andá Directo al Grano conociendo más de McCafé.",
+      "desc_btn": "Ver más",
+      "title": "McCafé Directo al Grano",
+      "btn_enabled": true
+    },
+    {
+      "id": 13,
+      "ref": "/banners/cards/me_copa_automac_60_segundos_580x250_8f4f6dc9d2_892db2b9db.jpg",
+      "desc": "Disfrutá de lo que más te gusta sin bajarte de tu vehículo",
+      "desc_btn": "Encontrá el más cercano",
+      "title": "#MeCopaAutomac",
+      "btn_enabled": true
+    },
+    {
+      "id": 14,
+      "ref": "/banners/cards/Puertas_Abiertas_Banner_Desktop_721989657e.png",
+      "desc": "#PuertasTransparentes te invita a recorrer las cocinas y enterarte todo lo que pasa detrás del mostrador.",
+      "desc_btn": "Visítalas aquí",
+      "title": "¡Conocé todo sobre nuestros combos!",
+      "btn_enabled": true
+    },
+    {
+      "id": 15,
+      "ref": "/banners/cards/Roblox_MP_580x250_3fad91f0dd.jpg",
+      "desc": "Continuá tu partida con un McComboPixel.",
+      "desc_btn": "Ver más",
+      "title": "¡Comprá tu McCombo Pixel y recibí un accesorio digital exclusivo para McDonald’s Land Tycoon en Roblox!",
+      "btn_enabled": true
+    }
+]
