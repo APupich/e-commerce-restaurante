@@ -1,31 +1,34 @@
 const express = require('express');
 const mysql = require('mysql2');
-require('dotenv').config()
+require('dotenv').config();
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-
 const API = express();
-API.use(
-    express.json()
-);
+API.use(express.json());
 
-const DB = mysql.createConnection({
-    host : process.env.DB_HOST,
-    user : process.env.DB_USER,
-    password : process.env.DB_PASSWORD, 
-    database : process.env.DB_NAME
-})
+// Use a connection pool for better performance and scalability
+const DB = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-DB.connect((err)=>{
-    if (err) {
-        console.error("Connect error: ",err);
-        return;
-    }
-    console.log("Conectado");
-})
+// Test DB connection
+DB.getConnection((err) => {
+  if (err) {
+    console.error("Connection error: ", err);
+    return;
+  }
+  console.log("Connected to database");
+});
+
 const PORT = 3000;
 /**
      .d8888b.   8888888888 88888888888 
@@ -37,45 +40,52 @@ const PORT = 3000;
     Y88b  d88P  888            888     
     "Y8888P88   8888888888     888                               
  */
-API.get("/",(req,res)=>{
-    res.send("Hola pupi");
-})
+API.get("/", (req, res) => {
+  res.send("Hola pupi");
+});
 
-API.get("/menu",(req,res)=>{
-    DB.query("CALL ListarMenuRestaurante(1);",(err,results)=>{
+// Get the menu for the restaurant
+API.get("/menu", (req, res) => {
+  DB.query("CALL ListarMenuRestaurante(1);", (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json(results[0]);
+  });
+});
+
+// Get menu items by category
+API.get("/menu/:category2", (req, res) => {
+  const { category2 } = req.params;
+  const category = capitalize(category2);
+  
+  DB.query("CALL ListarPlatosPorCategoria(?);", [category], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json(results[0]);
+  });
+});
+
+// Get orders by date
+API.get("/pedido/:date", (req, res) => {
+  const { date } = req.params;
+  
+  DB.query("CALL ListarPedidosDelDia(?);", [date], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json(results[0]);
+  });
+});
+API.get("/categorias",(req,res)=>{
+    DB.query("CALL ListarCategorias()",[],(err,results)=>{
         if (err) {
-            res.json({message:err.message});
-            return;
+            return res.status(500).json({ message: "Database error", error: err.message });
         }
         res.json(results[0]);
     })
 })
-
-API.get("/menu/:category2",(req,res)=>{
-    let {category2} = req.params;
-    const category = capitalize(category2);
-    DB.query("CALL ListarPlatosPorCategoria(?);",
-        [category],(err,results)=>{
-        if (err) {
-            res.json({message:err.message});
-            return;
-        }
-        res.json(results[0]);
-    })
-})
-
-API.get("/pedido/:date",(req,res)=>{
-    const {date} = req.params;
-    DB.query("CALL ListarPedidosDelDia(?);",
-        [date],(err,results)=>{
-        if (err) {
-            res.json({message:err.message});
-            return;
-        }
-        res.json(results[0]);
-    })
-})
-
 /**
     8888888b.   .d88888b.   .d8888b. 88888888888 
     888   Y88b d88P" "Y88b d88P  Y88b    888     
@@ -86,34 +96,74 @@ API.get("/pedido/:date",(req,res)=>{
     888        Y88b. .d88P Y88b  d88P    888     
     888         "Y88888P"   "Y8888P"     888 
  */
+// User login
+API.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
 
+  DB.query("CALL login(?, ?)", [email, password], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    
+    if (results[0].length <= 0) {
+      return res.status(400).json({ message: "Email or password is incorrect" });
+    }
+    res.json({ status: "success", data: results[0] });
+  });
+});
 
-//API.post()
-API.post("/login",(req,res)=>{
-    const {email,password} = req.body;
-    DB.query("CALL login(?,?)",[email,password],(err,results)=>{
-        if (err) {
-            res.json({message:err.message})
-            return;
-        }
-        if (results[0].length<=0) {
-            res.json({errno:400,error:"email o contraseña incorrecta"});
-        }else{
-            res.json(results[0])
-        }
-    })
-})
+// Register user
+API.post("/register", (req, res) => {
+  const { email, password } = req.body;
+  
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
 
-API.post("/register",(req,res)=>{
-    const {email,password} = req.body;
-    DB.query("CALL register(?,?)",[email,password],(err,results)=>{
-        if (err) {
-            res.json({errno:400,message:err.message})
-            return;
-        }
-        res.json({errno:200,error:"perfil creado correctamente"});
-    })
-})
-API.listen(PORT,()=>{
-    console.log("Listening port: ",PORT)
+  DB.query("CALL register(?, ?)", [email, password], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json({ status: "success", message: "Profile created successfully" });
+  });
+});
+
+// Create a new order
+API.post("/pedido/create", (req, res) => {
+  const { id_usuario } = req.body;
+  
+  if (!id_usuario) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  DB.query("CALL CrearPedido(?);", [id_usuario], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json({ status: "success", message: "Order created successfully" });
+  });
+});
+
+// Add details to a specific order
+API.post("/pedido_detalle/create", (req, res) => {
+  const { id_pedido, id_plato, nota } = req.body;
+  
+  if (!id_pedido || !id_plato) {
+    return res.status(400).json({ message: "Order ID and Plate ID are required" });
+  }
+
+  DB.query("CALL CrearPedidoDetalle(?, ?, ?);", [id_pedido, id_plato, nota], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json({ status: "success", message: "Order detail added successfully" });
+  });
+});
+
+API.listen(PORT, () => {
+  console.log("Listening on port:", PORT);
 });
