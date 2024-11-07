@@ -1,8 +1,9 @@
-main{
+.main{
 	max-width: 100vw;
-	height: calc(100% - 3rem);
+	height: 100%;
 	background-color: inherit;
 	overflow: hidden;
 	overflow-y: scroll;
 	scrollbar-width: none;
+	padding-top: 3rem;
 }
