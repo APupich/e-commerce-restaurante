@@ -27,7 +27,16 @@ DB.connect((err)=>{
     console.log("Conectado");
 })
 const PORT = 3000;
-
+/**
+     .d8888b.   8888888888 88888888888 
+    d88P  Y88b  888            888     
+    888    888  888            888     
+    888         8888888        888     
+    888  88888  888            888     
+    888    888  888            888     
+    Y88b  d88P  888            888     
+    "Y8888P88   8888888888     888                               
+ */
 API.get("/",(req,res)=>{
     res.send("Hola pupi");
 })
@@ -55,6 +64,56 @@ API.get("/menu/:category2",(req,res)=>{
     })
 })
 
+API.get("/pedido/:date",(req,res)=>{
+    const {date} = req.params;
+    DB.query("CALL ListarPedidosDelDia(?);",
+        [date],(err,results)=>{
+        if (err) {
+            res.json({message:err.message});
+            return;
+        }
+        res.json(results[0]);
+    })
+})
+
+/**
+    8888888b.   .d88888b.   .d8888b. 88888888888 
+    888   Y88b d88P" "Y88b d88P  Y88b    888     
+    888    888 888     888 Y88b.         888     
+    888   d88P 888     888  "Y888b.      888     
+    8888888P"  888     888     "Y88b.    888     
+    888        888     888       "888    888     
+    888        Y88b. .d88P Y88b  d88P    888     
+    888         "Y88888P"   "Y8888P"     888 
+ */
+
+
+//API.post()
+API.post("/login",(req,res)=>{
+    const {email,password} = req.body;
+    DB.query("CALL login(?,?)",[email,password],(err,results)=>{
+        if (err) {
+            res.json({message:err.message})
+            return;
+        }
+        if (results[0].length<=0) {
+            res.json({errno:400,error:"email o contraseña incorrecta"});
+        }else{
+            res.json(results[0])
+        }
+    })
+})
+
+API.post("/register",(req,res)=>{
+    const {email,password} = req.body;
+    DB.query("CALL register(?,?)",[email,password],(err,results)=>{
+        if (err) {
+            res.json({errno:400,message:err.message})
+            return;
+        }
+        res.json({errno:200,error:"perfil creado correctamente"});
+    })
+})
 API.listen(PORT,()=>{
     console.log("Listening port: ",PORT)
 });
