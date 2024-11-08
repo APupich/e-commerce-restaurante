@@ -23,6 +23,43 @@ export default function Header() {
           <div className={s.btn_close} onClick={toggleAside}>
             <i class="fa-solid fa-xmark"></i>
           </div>
+          <div className={s.tabs}>
+            <div className={s.tab}>
+              <span>Productos</span>
+              <div className={s.btn_expand}>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+
+            <div className={s.tab}>
+              <span>Lanzamientos</span>
+              <div className={s.btn_expand}>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+
+            <div className={s.tab}>
+              <span>Locales</span>
+              {/* <div className={s.btn_expand}>
+                <i class="fa-solid fa-plus"></i>
+              </div> */}
+            </div>
+
+            <div className={s.tab}>
+              <span>En Familia</span>
+              <div className={s.btn_expand}>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+
+            <div className={s.tab}>
+              <span>Nosotros</span>
+              <div className={s.btn_expand}>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+          </div>
+          
         </header>
       )}
     </>
