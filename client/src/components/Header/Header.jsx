@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import s from './Header.module.css';
 
 export default function Header() {
@@ -19,47 +20,31 @@ export default function Header() {
         </header>
       ) : (
         <header className={s.aside}>
-          <img src="https://cdn.pixabay.com/photo/2021/09/22/17/17/mcdonalds-6647433_960_720.png" alt="McDonald's Logo" />
+          <img className={s.img} src="https://cdn.pixabay.com/photo/2021/09/22/17/17/mcdonalds-6647433_960_720.png" alt="McDonald's Logo" />
           <div className={s.btn_close} onClick={toggleAside}>
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
           <div className={s.tabs}>
-            <div className={s.tab}>
+            <Link className={s.tab} to="">
               <span>Productos</span>
               <div className={s.btn_expand}>
-                <i class="fa-solid fa-plus"></i>
+                <i className="fa-solid fa-burger"></i>
               </div>
-            </div>
+            </Link>
 
-            <div className={s.tab}>
-              <span>Lanzamientos</span>
+            <Link className={s.tab}>
+              <span>Carrito</span>
               <div className={s.btn_expand}>
-                <i class="fa-solid fa-plus"></i>
+                <i className="fa-solid fa-cart-shopping"></i>
               </div>
-            </div>
-
-            <div className={s.tab}>
-              <span>Locales</span>
-              {/* <div className={s.btn_expand}>
-                <i class="fa-solid fa-plus"></i>
-              </div> */}
-            </div>
-
-            <div className={s.tab}>
-              <span>En Familia</span>
-              <div className={s.btn_expand}>
-                <i class="fa-solid fa-plus"></i>
-              </div>
-            </div>
-
-            <div className={s.tab}>
-              <span>Nosotros</span>
-              <div className={s.btn_expand}>
-                <i class="fa-solid fa-plus"></i>
-              </div>
-            </div>
+            </Link>
           </div>
-          
+          <div className={s.login}>
+            <Link to="login" onClick={toggleAside}>
+              <img src="/logos/79_15_1_icone_70x70_bf9839ed7c.png"/>
+              <span>Ingresá</span>
+            </Link>
+          </div>
         </header>
       )}
     </>

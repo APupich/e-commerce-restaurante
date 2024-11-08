@@ -55,9 +55,9 @@ export default function Footer() {
 			</div>
 			<div className={s.social}>
 				<ul>
-					<li><i class="fa-brands fa-linkedin"></i></li>
-					<li><i class="fa-brands fa-github"></i></li>
-					<li><i class="fa-solid fa-envelope"></i></li>
+					<li><i className="fa-brands fa-linkedin"></i></li>
+					<li><i className="fa-brands fa-github"></i></li>
+					<li><i className="fa-solid fa-envelope"></i></li>
 				</ul>
 			</div>
 			<div className={s.descargas}>

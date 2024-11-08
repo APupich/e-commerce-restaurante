@@ -1,6 +1,7 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import Header from "../../components/Header/Header"
-import Landing from "../../pages/Landing/Landing"
+import Footer from '../../components/Footer/Footer'
 import s from "./MainLayout.module.css"
 
 export default function MainLayout() {
@@ -8,7 +9,8 @@ export default function MainLayout() {
 		<>
 			<Header />
 			<main className={s.main}>
-				<Landing />
+				<Outlet/>
+				<Footer/>
 			</main>
 		</>
 	)

@@ -11,7 +11,6 @@ export default function Landing() {
       <div className={s.cardsContainer}>
         <Cards/>
       </div>
-      <Footer/>
     </>
   )
 }
