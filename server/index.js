@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 require('dotenv').config();
 
 function capitalize(str) {
@@ -7,7 +8,15 @@ function capitalize(str) {
 }
 
 const API = express();
+
+// Configura CORS para permitir solo peticiones desde http://localhost:3000
+API.use(cors({
+  origin: 'http://localhost:3000'
+}));
+
 API.use(express.json());
+
+// Resto de la configuración y endpoints...
 
 // Use a connection pool for better performance and scalability
 const DB = mysql.createPool({
