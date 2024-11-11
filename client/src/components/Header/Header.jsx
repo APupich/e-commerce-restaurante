@@ -13,26 +13,26 @@ export default function Header() {
     <>
       {!asideActive ? (
         <header className={s.header}>
-          <img src="https://cdn.pixabay.com/photo/2021/09/22/17/17/mcdonalds-6647433_960_720.png" alt="McDonald's Logo" />
+          <a href="/"><img src="https://cdn.pixabay.com/photo/2021/09/22/17/17/mcdonalds-6647433_960_720.png" alt="McDonald's Logo" /></a>
           <div className={s.btn_menu} onClick={toggleAside}>
             <i className="fa-solid fa-bars"></i>
           </div>
         </header>
       ) : (
         <header className={s.aside}>
-          <img className={s.img} src="https://cdn.pixabay.com/photo/2021/09/22/17/17/mcdonalds-6647433_960_720.png" alt="McDonald's Logo" />
+          <a href="/"><img className={s.img} src="https://cdn.pixabay.com/photo/2021/09/22/17/17/mcdonalds-6647433_960_720.png" alt="McDonald's Logo" /></a>
           <div className={s.btn_close} onClick={toggleAside}>
             <i className="fa-solid fa-xmark"></i>
           </div>
           <div className={s.tabs}>
-            <Link className={s.tab} to="">
+            <Link className={s.tab} to="productos">
               <span>Productos</span>
               <div className={s.btn_expand}>
                 <i className="fa-solid fa-burger"></i>
               </div>
             </Link>
 
-            <Link className={s.tab}>
+            <Link className={s.tab} to="carrito">
               <span>Carrito</span>
               <div className={s.btn_expand}>
                 <i className="fa-solid fa-cart-shopping"></i>

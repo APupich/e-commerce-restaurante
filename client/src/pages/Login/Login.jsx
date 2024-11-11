@@ -165,36 +165,36 @@ export default function Login() {
 			<div className={s.container}>
 				<div className={s.switchero+" "+(!cambio?s.op2:"")}>
 					<button className={s.switch+" "+(cambio?s.selected:"")} id="login" onClick={cambiarForm}>Login</button>
-					<button className={s.switch+" "+(!cambio?s.selected:"")} id="register" onClick={cambiarForm}>Register</button>
+					<button className={s.switch+" "+(!cambio?s.selected:"")} id="register" onClick={cambiarForm}>Registro</button>
 				</div>
 				<div className={(cambio)?(s.form):(s.dnone)} id='loginForm'>
 					<label htmlFor="error" className={s.error}>{error2}</label>
-					<input id="loginName" tabIndex="1" className='focusNext' type="text" name="email_nick" required onChange={onchangeName} placeholder='Username or email'/>
+					<input id="loginName" tabIndex="1" className='focusNext' type="text" name="email_nick" required onChange={onchangeName} placeholder='Nombre de usuario o correo electrónico'/>
 
-					<input id="password" tabIndex="2" className='focusNext' type="password" name="password" required onChange={onchangePass} placeholder='Password'/>
+					<input id="password" tabIndex="2" className='focusNext' type="password" name="password" required onChange={onchangePass} placeholder='Contraseña'/>
 
 					<label className={s.checkbox}>
 						<div className={s.cb_input} onClick={toggleCheckbox}><i className={`fa-solid fa-check ${checkbox ? '' : s.dnone}`}></i></div>
-						<span className={s.cb_span}>Remember me</span>
+						<span className={s.cb_span}>Recuérdame</span>
 					</label>
 
-					<button type="submit" tabIndex="3" className={'focusNext '+s.submit} value="Login" name="login" onClick={loguearse}>Login</button>
+					<button type="submit" tabIndex="3" className={'focusNext '+s.submit} value="Login" name="login" onClick={loguearse}>Ingresar</button>
 				</div>
 				<div className={(!cambio)?(s.form):(s.dnone)} id='registerForm'>
 					<label htmlFor="error" className={s.error}>{error2}</label>
 
-					<input id="email" tabIndex="4" className='focusNext' type="email" name="email" required onChange={onchangeEmail} placeholder='Email'/>
+					<input id="email" tabIndex="4" className='focusNext' type="email" name="email" required onChange={onchangeEmail} placeholder='Correo electrónico'/>
 
 					<span className={s.filter}>
-						<input id="username" tabIndex="5" className='focusNext' type="text" name="username" required onChange={onchangeUsername} placeholder='Username'/>
+						<input id="username" tabIndex="5" className='focusNext' type="text" name="username" required onChange={onchangeUsername} placeholder='Nombre de usuario'/>
 						<p className={warn? s.warn : s.disable}>{warn? 'Nombre Inadecuado' : ''}</p>
 					</span>
 
-					<input id="rpassword" tabIndex="6" className='focusNext' type="password" name="password" required onChange={onchangePassword} placeholder='Password'/>
+					<input id="rpassword" tabIndex="6" className='focusNext' type="password" name="password" required onChange={onchangePassword} placeholder='Contraseña'/>
 
-					<input id="rpassword2" tabIndex="7" className='focusNext' type="password" name="rpassword" required onChange={onchangeRpassword} placeholder='Repeat Password'/>
+					<input id="rpassword2" tabIndex="7" className='focusNext' type="password" name="rpassword" required onChange={onchangeRpassword} placeholder='Repetir contraseña'/>
 
-					<button type="submit" tabIndex="8" className={s.submit+" focusNext "+(warn? s.btn_disable : '')} value="Register" name="register" onClick={registrarse}>Register</button>
+					<button type="submit" tabIndex="8" className={s.submit+" focusNext "+(warn? s.btn_disable : '')} value="Register" name="register" onClick={registrarse}>Registrarse</button>
 				</div>
 			</div>
 		</div>
