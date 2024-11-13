@@ -88,6 +88,7 @@ API.get("/pedido/:date", (req, res) => {
   });
 });
 API.get("/categorias",(req,res)=>{
+
     DB.query("CALL ListarCategorias()",[],(err,results)=>{
         if (err) {
             return res.status(500).json({ message: "Database error", error: err.message });
@@ -95,6 +96,18 @@ API.get("/categorias",(req,res)=>{
         res.json(results[0]);
     })
 })
+
+API.get("/carrito/:id",(req,res)=>{
+  const { id } = req.params;
+  DB.query("CALL miCarrito(?);",[id],(err,results)=>{
+      if (err) {
+          return res.status(500).json({ message: "Database error", error: err.message });
+      }
+      res.json(results[0]);
+  })
+})
+
+
 /**
     8888888b.   .d88888b.   .d8888b. 88888888888 
     888   Y88b d88P" "Y88b d88P  Y88b    888     
@@ -166,6 +179,32 @@ API.post("/pedido_detalle/create", (req, res) => {
   }
 
   DB.query("CALL CrearPedidoDetalle(?, ?, ?);", [id_pedido, id_plato, nota], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json({ status: "success", message: "Order detail added successfully" });
+  });
+});
+
+API.post("/carrito/comprar", (req, res) => {
+  const { id_pedido, id_plato, nota } = req.body;
+  
+  if (!id_pedido || !id_plato) {
+    return res.status(400).json({ message: "Order ID and Plate ID are required" });
+  }
+
+  DB.query("CALL CrearPedidoDetalle(?, ?, ?);", [id_pedido, id_plato, nota], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json({ status: "success", message: "Order detail added successfully" });
+  });
+});
+
+API.post("/carrito/agregar", (req, res) => {
+  const { id_usuario, id_plato, cantidad } = req.body;
+  
+  DB.query("CALL carritoAgregar(?, ?, ?);", [id_usuario, id_plato, cantidad], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
