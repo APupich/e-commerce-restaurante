@@ -1,42 +1,64 @@
-import React ,{ useState,useEffect } from 'react'
-import { Link } from "react-router-dom"
-import s from "./Products.module.css"
-
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import s from "./Products.module.css";
+import Filter from "../../components/Filter/Filter";
 
 export default function Products() {
-  const ENDPOINTS = {
-    FILTROS:"/filtros/filters.json"
-  }
-  const [filterData,setFilterData] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [categoryId, setCategoryId] = useState(1);
+
+  const fetchProductsByCategory = (categoryId) => {
+    setLoading(true);
+    fetch(`http://localhost:3000/menu/${categoryId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching products:', error);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    fetch(ENDPOINTS.FILTROS)
-      .then((response) => response.json())
-      .then((d) => setFilterData(d))
-      .catch((error) => console.error('Error fetching data:', error));
-  }, [ENDPOINTS.FILTROS]);
-  
+    fetchProductsByCategory(categoryId);
+  }, [categoryId]);
+
+  const handleCategorySelect = (category) => {
+    setCategoryId(category);
+  };
+
   return (
-    <>
-      <div className={s.filter}>
-        <div className={s.rutas}>
-          <Link to="/">Inicio</Link>
-          <i class="fa-solid fa-chevron-right"></i>
-          <span>Productos</span>
-        </div>
-        <div className={s.productos}>
-          <h1>Nuestros Productos</h1>
-          <div className={s.filterContainer}>
-            {filterData.map((e) => (
-              <div className={s.elem+" "+s.selected}>
-                <img src={e.img}/>
-                <span>{e.content}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div className={s.filter}>
+      <div className={s.rutas}>
+        <Link to="/">Inicio</Link>
+        <i className="fa-solid fa-chevron-right"></i>
+        <span>Productos</span>
       </div>
-      
-    </>
-  )
+      <div className={s.productos}>
+        <h1>Nuestros Productos</h1>
+        <Filter onCategorySelect={handleCategorySelect} />
+
+        {loading ? (
+          <p>Cargando productos...</p>
+        ) : (
+          <div className={s.productList}>
+            <h1>Hamburguesas</h1>
+            {products.length > 0 ? (
+              products.map((product) => (
+                <div key={product.ID_plato} className={s.productItem}>
+                  <div className={s.imgContainer}><img src={product.foto_Url} alt={product.nombre}/></div>
+                  <span>{product.nombre}</span>
+                </div>
+              ))
+            ) : (
+              <p>No se encontraron productos.</p>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

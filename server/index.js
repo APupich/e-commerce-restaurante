@@ -11,7 +11,7 @@ const API = express();
 
 // Configura CORS para permitir solo peticiones desde http://localhost:3000
 API.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'http://localhost:5173'
 }));
 
 API.use(express.json());

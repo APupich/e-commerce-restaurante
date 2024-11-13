@@ -10,7 +10,7 @@
     {
       "id": 2,
       "ref": "/banners/cards/banner_580x250_5_1_a76a3019d6.jpg",
-      "desc": "Llegaron a McDonald's Argentina los personajes de #BT21 . Recibí un personaje con cada McCombo de 10 piezas de Chicken McNuggets.",
+      "desc": "Llegaron a McChaza's Argentina los personajes de #BT21 . Recibí un personaje con cada McCombo de 10 piezas de Chicken McNuggets.",
       "desc_btn": "",
       "title": "¡Conocé a los personajes de BT21!",
       "btn_enabled": false
@@ -26,7 +26,7 @@
     {
       "id": 4,
       "ref": "/banners/cards/Banner_APP_WEB_Mc_Melt_580x250_1_1e4818517d.jpg",
-      "desc": "Llegó a McDonald's la nueva Bacon Cheddar McMelt, con mucho, muchísimo cheddar, che . Vení a probarla. Chequeadísimo que te va a encantar.",
+      "desc": "Llegó a McChaza's la nueva Bacon Cheddar McMelt, con mucho, muchísimo cheddar, che . Vení a probarla. Chequeadísimo que te va a encantar.",
       "desc_btn": "Chequeala acá",
       "title": "¡Nueva Bacon Cheddar McMelt!",
       "btn_enabled": true
@@ -52,7 +52,7 @@
       "ref": "/banners/cards/Banner_Web_Pedi_Retira_QR_580x250_0a21c3e50e.jpg",
       "desc": "Adelantá tu pedido desde la app y retirá como quieras",
       "desc_btn": "Ver más",
-      "title": "Disfrutá McDonald's a tu manera",
+      "title": "Disfrutá McChaza's a tu manera",
       "btn_enabled": true
     },
     {
@@ -116,7 +116,7 @@
       "ref": "/banners/cards/Roblox_MP_580x250_3fad91f0dd.jpg",
       "desc": "Continuá tu partida con un McComboPixel.",
       "desc_btn": "Ver más",
-      "title": "¡Comprá tu McCombo Pixel y recibí un accesorio digital exclusivo para McDonald’s Land Tycoon en Roblox!",
+      "title": "¡Comprá tu McCombo Pixel y recibí un accesorio digital exclusivo para McChaza’s Land Tycoon en Roblox!",
       "btn_enabled": true
     }
 ]

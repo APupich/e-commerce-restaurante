@@ -1,21 +1,7 @@
-/* .filter{
-	 
-	background-color: antiquewhite;
-	.btn-cat {
-		color: rgb(156, 156, 156);
-		height: 80px;
-		flex: 0 0 80px;
-		background-color: white;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 10px;
-	}
-} */
 .filter{
 	width: 100%;
 	height: fit-content;
+	min-height: calc(100vh - 3rem);
 	display: flex;
 	flex-direction: column;
 	padding: 0 1rem 2rem 1rem;
@@ -42,31 +28,38 @@
 		flex-direction: column;
 		align-items: center;
 		gap: 1rem;
-		.filterContainer{
-			border-radius: 6px;
-			border: 1px solid #e1e1e1;
-			height: fit-content;
+		.productList{
 			width: 100%;
-			padding: 20px;
+			height: fit-content;
 			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
 			align-items: center;
-			overflow: hidden;
-			overflow-x: scroll;
-			gap: 2rem;
-			.elem{
-				height: 10rem;
-				width: 9rem;
+			justify-content: center;
+			padding: 0 3.5rem;
+			flex-wrap: wrap;
+			h1{
+				margin: 2rem 0;
+			}
+			.productItem{
+				width: 50%;
+				height: 8rem;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 				border-radius: 4px;
-				padding-bottom: 1rem;
-				img{
-					height: 8rem;
+				padding: .5rem;
+		
+				.imgContainer{
+					display: flex;
+					align-items: center;
+					width: 7rem;
+					img{
+						max-height: 5rem;
+						width: 100%;
+						object-fit: contain;
+					}
 				}
+				
 				span{
 					display: flex;
 					text-align: center;

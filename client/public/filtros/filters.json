@@ -1,34 +1,37 @@
 [
 	{
+		"img": "/filtros/kKXdw3Ku.png",
+		"content": "Hamburguesas",
+		"categoria": 1
+	},
+	{
 		"img": "/filtros/k5XhSNp5.png",
-		"content": "Hamburguesas"
-	},
-	{
-		"img": "/filtros/kaXT6bJZ.png",
-		"content": ""
-	},
-	{
-		"img": "/filtros/kcX2292z.png",
-		"content": ""
-	},
-	{
-		"img": "/filtros/kcXjLPM7.png",
-		"content": ""
-	},
-	{
-		"img": "/filtros/kGXbPR72.png",
-		"content": ""
-	},
-	{
-		"img": "/filtros/kGXmuT46.png",
-		"content": ""
+		"content": "Sandwiches de Pollo",
+		"categoria": 2
 	},
 	{
 		"img": "/filtros/kKX4MZKT.png",
-		"content": ""
+		"content": "Papas y Complementos",
+		"categoria": 3
 	},
 	{
-		"img": "/filtros/kKXdw3Ku.png",
-		"content": ""
+		"img": "/filtros/kcX2292z.png",
+		"content": "Bebidas",
+		"categoria": 4
+	},
+	{
+		"img": "/filtros/kcXjLPM7.png",
+		"content": "Postres",
+		"categoria": 5
+	},
+	{
+		"img": "/filtros/kGXbPR72.png",
+		"content": "McCafé",
+		"categoria": 6
+	},
+	{
+		"img": "/filtros/kGXmuT46.png",
+		"content": "Ensaladas",
+		"categoria": 7
 	}
 ]
