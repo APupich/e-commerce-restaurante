@@ -52,7 +52,16 @@ const PORT = 3000;
 API.get("/", (req, res) => {
   res.send("Hola pupi");
 });
-
+API.get("/plato/:id_plato", (req, res) => {
+  const { id_plato } = req.params;
+  
+  DB.query("CALL buscar_plato(?);", [id_plato], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json(results[0]);
+  });
+});
 // Get the menu for the restaurant
 API.get("/menu", (req, res) => {
   DB.query("CALL ListarMenuRestaurante(1);", (err, results) => {
@@ -97,17 +106,6 @@ API.get("/categorias",(req,res)=>{
     })
 })
 
-API.get("/carrito/:id",(req,res)=>{
-  const { id } = req.params;
-  DB.query("CALL miCarrito(?);",[id],(err,results)=>{
-      if (err) {
-          return res.status(500).json({ message: "Database error", error: err.message });
-      }
-      res.json(results[0]);
-  })
-})
-
-
 /**
     8888888b.   .d88888b.   .d8888b. 88888888888 
     888   Y88b d88P" "Y88b d88P  Y88b    888     
@@ -120,13 +118,13 @@ API.get("/carrito/:id",(req,res)=>{
  */
 // User login
 API.post("/login", (req, res) => {
-  const { email, password } = req.body;
+  const { email_nick, password } = req.body;
   
-  if (!email || !password) {
+  if (!email_nick || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
 
-  DB.query("CALL login(?, ?)", [email, password], (err, results) => {
+  DB.query("CALL login(?, ?)", [email_nick, password], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
@@ -134,7 +132,7 @@ API.post("/login", (req, res) => {
     if (results[0].length <= 0) {
       return res.status(400).json({ message: "Email or password is incorrect" });
     }
-    res.json({ status: "success", data: results[0] });
+    res.json({ status: "success",errno:200, data: results[0] });
   });
 });
 
@@ -155,7 +153,7 @@ API.post("/register", (req, res) => {
 });
 
 // Create a new order
-API.post("/pedido/create", (req, res) => {
+API.post("/pedido2/create", (req, res) => {
   const { id_usuario } = req.body;
   
   if (!id_usuario) {
@@ -171,20 +169,35 @@ API.post("/pedido/create", (req, res) => {
 });
 
 // Add details to a specific order
-API.post("/pedido_detalle/create", (req, res) => {
-  const { id_pedido, id_plato, nota } = req.body;
-  
-  if (!id_pedido || !id_plato) {
-    return res.status(400).json({ message: "Order ID and Plate ID are required" });
+API.post("/pedido/create", (req, res) => {
+  const { id_producto, id_usuario, cantidad } = req.body;
+  let nota = ""; // Puedes ajustar este valor según necesites.
+
+  // Verificar si id_usuario e id_producto están presentes en la solicitud.
+  if (!id_usuario || !id_producto) {
+    return res.status(400).json({ message: "User ID and Plate ID are required" });
   }
 
-  DB.query("CALL CrearPedidoDetalle(?, ?, ?);", [id_pedido, id_plato, nota], (err, results) => {
+  // Llamar al procedimiento almacenado 'buscarPedido' para obtener o crear el pedido.
+  DB.query("CALL buscarPedido(?);", [id_usuario], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
-    res.json({ status: "success", message: "Order detail added successfully" });
+
+    // Acceder al ID del pedido devuelto por el procedimiento almacenado.
+    const pedido_id = results[0][0].new_id;
+
+    // Crear un nuevo detalle de pedido usando 'CrearPedidoDetalle'.
+    DB.query("CALL CrearPedidoDetalle(?, ?, ?);", [pedido_id, id_producto, cantidad], (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: "Database error", error: err.message });
+      }
+      res.json({ status: "success", message: "Order detail added successfully" });
+    });
   });
 });
+
+
 
 API.post("/carrito/comprar", (req, res) => {
   const { id_pedido, id_plato, nota } = req.body;

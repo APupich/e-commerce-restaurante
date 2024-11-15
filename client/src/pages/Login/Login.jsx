@@ -65,6 +65,7 @@ export default function Login() {
 		try {
 			let data = await dataFetch(name,pass);
 			setDataLogin(data);
+			
 		} catch (err) {
 			setError(err.message);
 		} finally {
@@ -72,15 +73,14 @@ export default function Login() {
 		}
 
 		setLoading(false)
-		console.log(data.error)
-		setError2(data.error);
+		console.log(data)
+		if (data.message) {
+			setError2(data.message);
+		}
 		if (data.errno == 200) {
 			localStorage.setItem("user",true);
-			localStorage.setItem("username", data.user.nickname);
-			localStorage.setItem("name", data.user.name);
-			localStorage.setItem("surname", data.user.surname);
-			localStorage.setItem("email", data.user.email);
-			localStorage.setItem("avatar", data.user.avatar);
+			localStorage.setItem("user_id",data.data[0].ID_usuario);
+			console.log(localStorage.getItem("user_id"))
 			
 			console.log(data)
 			window.location.href = "/"

@@ -47,21 +47,19 @@ export default function Products() {
         {loading ? (
           <p>Cargando productos...</p>
         ) : (
-          <>
+          <div className={s.productList}>
             <h1>{categoryName}</h1>
-            <div className={s.productList}>
-              {products.length > 0 ? (
-                products.map((product) => (
-                  <div key={product.ID_plato} className={s.productItem}>
-                    <div className={s.imgContainer}><img src={product.foto_Url} alt={product.nombre}/></div>
-                    <span>{product.nombre}</span>
-                  </div>
-                ))
-              ) : (
-                <p>No se encontraron productos.</p>
-              )}
-            </div>
-          </>
+            {products.length > 0 ? (
+              products.map((product) => (
+                <Link to={`/producto/${product.ID_plato}`} key={product.ID_plato} className={s.productItem}>
+                  <div className={s.imgContainer}><img src={product.foto_Url} alt={product.nombre}/></div>
+                  <span>{product.nombre}</span>
+                </Link>
+              ))
+            ) : (
+              <p>No se encontraron productos.</p>
+            )}
+          </div>
         )}
       </div>
     </div>
