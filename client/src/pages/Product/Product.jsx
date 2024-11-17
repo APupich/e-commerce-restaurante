@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import s from "./Product.module.css";
 
 function Product() {
   const { id_producto } = useParams(); // Captura el parámetro de la URL
@@ -49,11 +50,11 @@ function Product() {
       if (response.ok) {
         alert("Pedido realizado con éxito.");
       } else {
-        alert("Hubo un error al realizar el pedido.");
+        alert("Maximo de 4 productos en el carrito");
       }
     } catch (error) {
       console.error("Error al enviar el pedido:", error);
-      alert("Hubo un error al realizar el pedido.");
+      alert("Maximo de 4 productos en el carrito");
     }
   };
 
@@ -61,11 +62,16 @@ function Product() {
   if (!producto) return <p>Producto no encontrado.</p>;
 
   return (
-    <div>
-      <h2>{producto.nombre}</h2>
+    <div className={s.main}>
+      <div className={s.imagen}>
       <img src={producto.foto_Url} alt={producto.nombre} />
-      <p>{producto.descripcion}</p>
-      <p>Precio: ${producto.precio}</p>
+      </div>
+      <h2>{producto.nombre}</h2>
+      <p className={s.max_content}>{producto.descripcion}</p>
+      <div className={s.precio}>
+        <p>Precio: ${producto.precio}</p>
+
+      </div>
       
       {/* Formulario de cantidad */}
       <div>
