@@ -16,15 +16,16 @@ export default function Filter({ onCategorySelect }) {
         setFilterData(data);
         if (selectedItem === null) {
           setSelectedItem(0);
-          onCategorySelect(data[0].categoria);
+          onCategorySelect(data[0].categoria, data[0].content);
         }
       })
       .catch((error) => console.error('Error fetching data:', error));
+    onCategorySelect(1, "Hamburguesas");
   }, []);
 
-  const handleFilterClick = (index, category) => {
+  const handleFilterClick = (index, categoryId, categoryName) => {
     setSelectedItem(index);
-    onCategorySelect(category);
+    onCategorySelect(categoryId, categoryName);
   };
 
   return (
@@ -33,7 +34,7 @@ export default function Filter({ onCategorySelect }) {
         <div
           key={indexElem}
           className={`${s.elem} ${selectedItem === indexElem ? s.selected : ''}`}
-          onClick={() => handleFilterClick(indexElem, e.categoria)}
+          onClick={() => handleFilterClick(indexElem, e.categoria, e.content)}
         >
           <div className={s.imgContainer}>
             <img src={e.img} alt={e.content} />

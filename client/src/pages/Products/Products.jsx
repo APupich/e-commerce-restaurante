@@ -7,6 +7,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categoryId, setCategoryId] = useState(1);
+  const [categoryName, setCategoryName] = useState("Hamburguesas");
 
   const fetchProductsByCategory = (categoryId) => {
     setLoading(true);
@@ -26,10 +27,12 @@ export default function Products() {
     fetchProductsByCategory(categoryId);
   }, [categoryId]);
 
-  const handleCategorySelect = (category) => {
-    setCategoryId(category);
+  const handlersCategorySelect = (categoryId,categoryName) => {
+    setCategoryId(categoryId);
+    setCategoryName(categoryName);
   };
 
+  
   return (
     <div className={s.filter}>
       <div className={s.rutas}>
@@ -39,24 +42,26 @@ export default function Products() {
       </div>
       <div className={s.productos}>
         <h1>Nuestros Productos</h1>
-        <Filter onCategorySelect={handleCategorySelect} />
+        <Filter onCategorySelect={handlersCategorySelect}/>
 
         {loading ? (
           <p>Cargando productos...</p>
         ) : (
-          <div className={s.productList}>
-            <h1>Hamburguesas</h1>
-            {products.length > 0 ? (
-              products.map((product) => (
-                <div key={product.ID_plato} className={s.productItem}>
-                  <div className={s.imgContainer}><img src={product.foto_Url} alt={product.nombre}/></div>
-                  <span>{product.nombre}</span>
-                </div>
-              ))
-            ) : (
-              <p>No se encontraron productos.</p>
-            )}
-          </div>
+          <>
+            <h1>{categoryName}</h1>
+            <div className={s.productList}>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <div key={product.ID_plato} className={s.productItem}>
+                    <div className={s.imgContainer}><img src={product.foto_Url} alt={product.nombre}/></div>
+                    <span>{product.nombre}</span>
+                  </div>
+                ))
+              ) : (
+                <p>No se encontraron productos.</p>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>

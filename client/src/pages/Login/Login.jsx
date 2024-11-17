@@ -3,12 +3,12 @@ import s from "./Login.module.css";
 import { Link } from 'react-router-dom';
 
 const ENDPOINT = {
-	LOGIN: "http://localhost/API-kiwi/user/login",
-	REGISTER: "http://localhost/API-kiwi/user/register"
+	LOGIN: "http://localhost:3000/login",
+	REGISTER: "http://localhost:3000/register"
 };
 
-async function dataFetch(name,pass) {
-	let bodyContent = JSON.stringify({"email_nick": name,"password": pass});
+async function dataFetch(email,pass) {
+	let bodyContent = JSON.stringify({"email": email,"password": pass});
 
 	let response = await fetch(ENDPOINT.LOGIN, {
 		method: "POST",
@@ -23,8 +23,8 @@ async function dataFetch(name,pass) {
 	return(await data);
 }
 
-async function dataRegister(email,username,password,rpassword) {
-	let bodyContent = JSON.stringify({"email": email,"nickname": username,"password": password,"repeat_password": rpassword});
+async function dataRegister(email, password) {
+	let bodyContent = JSON.stringify({"email": email,"password": password});
 
 	let response = await fetch(ENDPOINT.REGISTER, {
 		method: "POST",
@@ -89,7 +89,7 @@ export default function Login() {
 	async function registrarse(){
 		if(warn) return;
 
-		let data = await dataRegister(email,username,password,rpassword);
+		let data = await dataRegister(email, password);
 		setError2(data.error);
 		if (data.errno == 200) {
 			console.log(data)
@@ -103,10 +103,6 @@ export default function Login() {
 	}
 	function onchangeEmail({target}){
 		setEmail(target.value);
-	}
-	function onchangeUsername({target}){
-		setUsername(target.value);
-		setWarn(StrFilter(username));
 	}
 	function onchangePassword({target}){
 		setPassword(target.value);
@@ -184,11 +180,6 @@ export default function Login() {
 					<label htmlFor="error" className={s.error}>{error2}</label>
 
 					<input id="email" tabIndex="4" className='focusNext' type="email" name="email" required onChange={onchangeEmail} placeholder='Correo electrónico'/>
-
-					<span className={s.filter}>
-						<input id="username" tabIndex="5" className='focusNext' type="text" name="username" required onChange={onchangeUsername} placeholder='Nombre de usuario'/>
-						<p className={warn? s.warn : s.disable}>{warn? 'Nombre Inadecuado' : ''}</p>
-					</span>
 
 					<input id="rpassword" tabIndex="6" className='focusNext' type="password" name="password" required onChange={onchangePassword} placeholder='Contraseña'/>
 
