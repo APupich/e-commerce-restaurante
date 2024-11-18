@@ -1,3 +1,25 @@
+.addCategory {
+    background-color: #f0f0f0;
+    color: #666;
+    text-align: center;
+    cursor: pointer;
+    border: 2px dashed #ccc;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .addCategory:hover {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .addCategory .imgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+  
 .filterContainer{
     border-radius: 6px;
     border: 1px solid #e1e1e1;

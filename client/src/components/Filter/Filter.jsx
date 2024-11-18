@@ -3,7 +3,7 @@ import s from "./filter.module.css";
 
 export default function Filter({ onCategorySelect }) {
   const ENDPOINTS = {
-    FILTROS: "/filtros/filters.json"
+    FILTROS: "http://localhost:3000/categorias"
   };
 
   const [filterData, setFilterData] = useState([]);
@@ -27,7 +27,10 @@ export default function Filter({ onCategorySelect }) {
     setSelectedItem(index);
     onCategorySelect(categoryId, categoryName);
   };
-
+  const handleAddCategoryClick = () => {
+    // Aquí puedes implementar la lógica para añadir una categoría
+    alert("Añadir nueva categoría");
+  };
   return (
     <div className={s.filterContainer}>
       {filterData.map((e, indexElem) => (
@@ -42,6 +45,16 @@ export default function Filter({ onCategorySelect }) {
           <span>{e.content}</span>
         </div>
       ))}
+      <div
+        className={`${s.elem} ${s.addCategory}`}
+        onClick={handleAddCategoryClick}
+      >
+        <div className={s.imgContainer}>
+          <i className="fa-solid fa-plus"></i>
+        </div>
+        <span>Añadir Categoría</span>
+      </div>
     </div>
+
   );
 }

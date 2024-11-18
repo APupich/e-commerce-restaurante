@@ -99,7 +99,6 @@ API.get("/pedido/:date", (req, res) => {
 });
 
 API.get("/categorias",(req,res)=>{
-
     DB.query("CALL ListarCategorias()",[],(err,results)=>{
         if (err) {
             return res.status(500).json({ message: "Database error", error: err.message });
@@ -381,6 +380,31 @@ API.put("/carrito/actualizar", (req, res) => {
   });
 });
 
+API.put('/menu/update/:id', async (req, res) => {
+  const productId = req.params.id;
+  const { nombre, foto_Url, precio, descripcion } = req.body;
+
+  // Validar que todos los campos requeridos están presentes
+  if (!nombre || !foto_Url || !precio || !descripcion) {
+    return res.status(400).json({ success: false, message: 'Faltan datos del producto.' });
+  }
+
+  try {
+    // Consulta para actualizar el producto
+    const query = `
+      UPDATE restaurante__platos
+      SET nombre = ?, foto_Url = ?, precio = ?, descripcion = ?
+      WHERE ID_plato = ?;
+    `;
+
+    // Ejecutar la consulta
+    const result = DB.query(query, [nombre, foto_Url, precio, descripcion, productId]);
+      res.json({ success: true, message: 'Producto actualizado correctamente.' });
+  } catch (error) {
+    console.error('Error al actualizar el producto:', error);
+    res.status(500).json({ success: false, message: 'Error del servidor.' });
+  }
+});
 
 API.listen(PORT, () => {
   console.log("Listening on port:", PORT);

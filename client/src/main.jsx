@@ -17,6 +17,7 @@ import Panel from './pages/Admin/Panel.jsx'
 import Pedidos from './pages/Admin/Pedidos/Pedidos.jsx'
 import Empleados from './pages/Admin/Empleados/Empleados.jsx'
 import Stats from './pages/Admin/Stats/Stats.jsx'
+import Productos from './pages/Admin/Productos/Productos.jsx'
 
 const isAdmin = localStorage.getItem("admin")
 const isEmployee = localStorage.getItem("employee")
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="pedidos" element={<Pedidos />} />
         <Route path="empleados" element={isAdmin ? <Empleados /> : <Navigate to="/" />} />
         <Route path="stats" element={<Stats />} />
+        <Route path="productos" element={<Productos />} />
 
       </Route>
     </Routes>

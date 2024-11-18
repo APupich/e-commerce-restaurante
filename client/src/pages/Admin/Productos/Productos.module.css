@@ -1,0 +1,129 @@
+.filter{
+	width: 100%;
+	height: fit-content;
+	min-height: calc(100vh - 3rem);
+	display: flex;
+	flex-direction: column;
+	padding: 0 1rem 2rem 1rem;
+	.rutas{
+		display: flex;
+		gap: .5rem;
+		height: 4rem;
+		padding: 3.5rem 2rem 2rem 1.5rem;
+		align-items: center;
+		font-size: .85rem;
+		color: gray;
+		a{
+			color: #006bae;
+			text-decoration: underline;
+		}
+		i{
+			font-size: .6rem;
+			color: black;
+		}
+	}
+
+	.productos{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		h1{
+			margin: 2rem 0;
+		}
+		.productList{
+			width: 100%;
+			height: fit-content;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0 3.5rem;
+			flex-wrap: wrap;
+			.productItem{
+				width: 50%;
+				height: 8rem;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				border-radius: 4px;
+				padding: .5rem;
+		
+				.imgContainer{
+					display: flex;
+					align-items: center;
+					width: 7rem;
+					img{
+						max-height: 5rem;
+						width: 100%;
+						object-fit: contain;
+					}
+				}
+				
+				span{
+					display: flex;
+					text-align: center;
+					color: black;
+					font-size: .9rem;
+				}
+			}
+			.selected{
+				border: 2px solid #FFBC02;
+				font-weight: 700;
+				pointer-events: none;
+			}
+		}
+	}
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  form input, form textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  form button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .close{
+    background-color: crimson;
+    margin: 0.5rem;
+  }
