@@ -194,7 +194,7 @@ API.post("/login", (req, res) => {
   const { email_nick, password } = req.body;
   
   if (!email_nick || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    return res.status(400).json({ message: "Email y Contraseña son requeridos" });
   }
 
   DB.query("CALL login(?, ?)", [email_nick, password], (err, results) => {
@@ -203,7 +203,7 @@ API.post("/login", (req, res) => {
     }
     
     if (results[0].length <= 0) {
-      return res.status(400).json({ message: "Email or password is incorrect" });
+      return res.status(400).json({ message: "Email o Contraseña Incorrecta" });
     }
     res.json({ status: "success",errno:200, data: results[0] });
   });
@@ -214,14 +214,14 @@ API.post("/register", (req, res) => {
   const { email_nick, password } = req.body;
   
   if (!email_nick || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+    return res.status(400).json({ message: "Email y Contraseña son requeridos" });
   }
 
   DB.query("CALL register(?, ?)", [email_nick, password], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
-    res.json({ status: "success", message: "Profile created successfully" });
+    res.json({ status: "success", message: "Perfil creado correctamente" });
   });
 });
 
@@ -230,14 +230,14 @@ API.post("/pedido2/create", (req, res) => {
   const { id_usuario } = req.body;
   
   if (!id_usuario) {
-    return res.status(400).json({ message: "User ID is required" });
+    return res.status(400).json({ message: "id de usuario es requerida" });
   }
 
   DB.query("CALL CrearPedido(?);", [id_usuario], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
-    res.json({ status: "success", message: "Order created successfully" });
+    res.json({ status: "success", message: "Orden creada correctamente" });
   });
 });
 
@@ -248,7 +248,7 @@ API.post("/pedido/create", (req, res) => {
 
   // Verificar si id_usuario e id_producto están presentes en la solicitud.
   if (!id_usuario || !id_producto) {
-    return res.status(400).json({ message: "User ID and Plate ID are required" });
+    return res.status(400).json({ message: "User ID y Plate ID son requeridos" });
   }
 
   // Llamar al procedimiento almacenado 'buscarPedido' para obtener o crear el pedido.
@@ -265,7 +265,7 @@ API.post("/pedido/create", (req, res) => {
       if (err) {
         return res.status(500).json({ message: "Database error", error: err.message });
       }
-      res.json({ status: "success", message: "Order detail added successfully" });
+      res.json({ status: "success", message: "Detalle a orden añadido correctamente" });
     });
   });
 });
@@ -283,7 +283,7 @@ API.post("/carrito/comprar", (req, res) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
-    res.json({ status: "success", message: "Order detail added successfully" });
+    res.json({ status: "success", message: "Detalle a orden añadido correctamente" });
   });
 });
 
@@ -294,7 +294,7 @@ API.post("/carrito/agregar", (req, res) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
-    res.json({ status: "success", message: "Order detail added successfully" });
+    res.json({ status: "success", message: "Detalle a orden añadido correctamente" });
   });
 });
 
@@ -305,7 +305,7 @@ API.post("/comprar", (req, res) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
-    res.json({ status: "success", message: "Order detail added successfully" });
+    res.json({ status: "success", message: "Detalle a orden añadido correctamente" });
   });
 });
 

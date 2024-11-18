@@ -20,6 +20,12 @@ export default function Footer() {
 						<h3>Empleados</h3>
 					</div>
 				</Link>
+				<Link className={s.cart} to="stats">
+				<i class="fa-solid fa-chart-simple"></i>
+					<div className={s['item-info']}>
+						<h3>Stats</h3>
+					</div>
+				</Link>
 			</div>
 
 		</>

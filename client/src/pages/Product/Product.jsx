@@ -8,7 +8,7 @@ function Product() {
   const [producto, setProducto] = useState(null);
   const [loading, setLoading] = useState(true);
   const [cantidad, setCantidad] = useState(1); // Estado para la cantidad
-
+  const [cart,setCart] = useState("Agregar al carrito");
   useEffect(() => {
     // Función para obtener el detalle del producto
     const fetchProducto = async () => {
@@ -50,6 +50,7 @@ function Product() {
 
       if (response.ok) {
         alert("Pedido realizado con éxito.");
+        setCart("Añadido al carrito")
       } else {
         alert("Máximo de 4 productos en el carrito");
       }
@@ -83,8 +84,8 @@ function Product() {
               onChange={(newValue) => setCantidad(newValue)}
             />
           </label>
-          <button className={s.button} onClick={handlePedido}>
-            Agregar al carrito
+          <button className={s.button} onClick={handlePedido} disabled={cart == "Añadido al carrito"}>
+            {cart}
           </button>
 
         </div>

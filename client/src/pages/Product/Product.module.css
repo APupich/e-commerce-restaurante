@@ -50,4 +50,12 @@
     transform: scale(0.95); /* Efecto al presionar */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   }
+  .button:disabled {
+    background-color: #f1f1f1; /* Color gris claro para el fondo */
+    color: #d1d1d1; /* Gris para el texto */
+    cursor: not-allowed; /* Cursor de no permitido */
+    box-shadow: none; /* Eliminar la sombra del botón */
+    transform: none; /* Sin animación al presionar */
+}
+
   
