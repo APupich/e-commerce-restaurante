@@ -117,7 +117,6 @@ export default function Cart() {
       // Marcar la compra como exitosa y actualizar el estado
       setPurchaseSuccess(true);
       setOrderId(id_pedido); // Guardamos el id_pedido
-      alert(`Compra realizada con éxito! El ID de tu pedido es: ${id_pedido}`);
 
       // Aquí puedes redirigir a otra página o limpiar el carrito
     } catch (error) {
