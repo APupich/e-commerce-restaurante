@@ -2,6 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
+    height: calc(100vh - 5rem);
+    margin-bottom: 5rem;
     .imagen{
         width: 70%;
         img{
@@ -10,14 +13,41 @@
         }
     }
     .precio{
-        height: 7rem;
+        
+        height: 2rem;
         display: grid;
         place-items: center;
         text-align: center;
     }
+
 }
 
 .max_content{
     max-width: 80%;
     text-align: justify;
 }
+
+.button {
+    background-color: #ffcc00; /* Amarillo McDonald's */
+    color: #bf0a30; /* Rojo McDonald's */
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .button:hover {
+    background-color: #ff9900; /* Amarillo más oscuro para hover */
+    transform: scale(1.05); /* Efecto de ampliación */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .button:active {
+    transform: scale(0.95); /* Efecto al presionar */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  

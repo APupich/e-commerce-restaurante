@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import s from "./Product.module.css";
+import Counter from '../../components/Counter/Counter'; // Importa el componente Counter
 
 function Product() {
   const { id_producto } = useParams(); // Captura el parámetro de la URL
@@ -50,11 +51,11 @@ function Product() {
       if (response.ok) {
         alert("Pedido realizado con éxito.");
       } else {
-        alert("Maximo de 4 productos en el carrito");
+        alert("Máximo de 4 productos en el carrito");
       }
     } catch (error) {
       console.error("Error al enviar el pedido:", error);
-      alert("Maximo de 4 productos en el carrito");
+      alert("Máximo de 4 productos en el carrito");
     }
   };
 
@@ -64,27 +65,29 @@ function Product() {
   return (
     <div className={s.main}>
       <div className={s.imagen}>
-      <img src={producto.foto_Url} alt={producto.nombre} />
-      </div>
-      <h2>{producto.nombre}</h2>
-      <p className={s.max_content}>{producto.descripcion}</p>
-      <div className={s.precio}>
-        <p>Precio: ${producto.precio}</p>
-
+        <img src={producto.foto_Url} alt={producto.nombre} />
       </div>
       
-      {/* Formulario de cantidad */}
-      <div>
-        <label>
-          Cantidad:
-          <input
-            type="number"
-            value={cantidad}
-            onChange={(e) => setCantidad(Math.max(1, e.target.value))}
-            min="1"
-          />
-        </label>
-        <button onClick={handlePedido}>Hacer Pedido</button>
+      <h2>{producto.nombre}</h2>
+      <p className={s.max_content}>{producto.descripcion}</p>
+      <div className={s.end}>
+        <div className={s.precio}>
+          <p>Precio: ${producto.precio}</p>
+        </div>
+
+        {/* Formulario de cantidad */}
+        <div>
+          <label>
+            <Counter
+              value={cantidad}
+              onChange={(newValue) => setCantidad(newValue)}
+            />
+          </label>
+          <button className={s.button} onClick={handlePedido}>
+            Hacer Pedido
+          </button>
+
+        </div>
       </div>
     </div>
   );

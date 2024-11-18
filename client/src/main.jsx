@@ -13,6 +13,14 @@ import Product from './pages/Product/Product.jsx'
 
 import Cart from './pages/Cart/Cart.jsx'
 
+import Panel from './pages/Admin/Panel.jsx'
+import Pedidos from './pages/Admin/Pedidos/Pedidos.jsx'
+import Empleados from './pages/Admin/Empleados/Empleados.jsx'
+import Stats from './pages/Admin/Stats/Stats.jsx'
+
+const isAdmin = localStorage.getItem("admin")
+const isEmployee = localStorage.getItem("employee")
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
@@ -25,6 +33,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </Route>
       <Route path="/producto/" element={<ProductLayout/>}>
         <Route path=":id_producto" element={<Product/>}/>
+      </Route>
+      <Route path="/admin" element={isAdmin || isEmployee ? <MainLayout /> : <Navigate to="/" />}>
+        <Route path="" element={<Panel />} />
+        <Route path="panel" element={<Panel />} />
+        <Route path="pedidos" element={<Pedidos />} />
+        <Route path="empleados" element={isAdmin ? <Empleados /> : <Navigate to="/" />} />
+        <Route path="stats" element={<Stats />} />
+
       </Route>
     </Routes>
   </BrowserRouter>  

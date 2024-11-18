@@ -8,7 +8,7 @@ const ENDPOINT = {
 };
 
 async function dataFetch(email,pass) {
-	let bodyContent = JSON.stringify({"email": email,"password": pass});
+	let bodyContent = JSON.stringify({"email_nick": email,"password": pass});
 
 	let response = await fetch(ENDPOINT.LOGIN, {
 		method: "POST",
@@ -24,7 +24,7 @@ async function dataFetch(email,pass) {
 }
 
 async function dataRegister(email, password) {
-	let bodyContent = JSON.stringify({"email": email,"password": password});
+	let bodyContent = JSON.stringify({"email_nick": email,"password": password});
 
 	let response = await fetch(ENDPOINT.REGISTER, {
 		method: "POST",
@@ -80,21 +80,41 @@ export default function Login() {
 		if (data.errno == 200) {
 			localStorage.setItem("user",true);
 			localStorage.setItem("user_id",data.data[0].ID_usuario);
-			console.log(localStorage.getItem("user_id"))
+			localStorage.setItem("admin",data.data[0].admin == 1 ? true : false);
+			localStorage.setItem("employee",data.data[0].admin == 2 ? true : false);
+
+			console.log(data)
 			
 			console.log(data)
-			window.location.href = "/"
+			if (data.data[0].admin==1 || data.data[0].admin ==2) {
+				window.location.href = "/admin"
+			}else{
+				window.location.href = "/"
+			}
 		}
 	}
 	async function registrarse(){
-		if(warn) return;
-
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			setError2("Por favor ingresa un correo electrónico válido.");
+			return;
+		}
+		if (password !== rpassword) {
+			setError2("Las contraseñas no coinciden.");
+			return;
+		}
+		if (warn) return;
 		let data = await dataRegister(email, password);
-		setError2(data.error);
-		if (data.errno == 200) {
-			console.log(data)
+	
+		// Manejo de la respuesta
+		if (data.message) {
+			setError2(data.message);
+		}
+		if (data.errno === 200) {
+			console.log(data);
 		}
 	}
+	
 	function onchangePass({target}){
 		setPass(target.value);
 	}

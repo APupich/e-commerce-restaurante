@@ -15,7 +15,7 @@ export default function ProductHeader() {
         <header className={s.header}>
           <Link to="/productos" className={s.icono2}><i class="fa-solid fa-arrow-left"></i></Link>
           <div className={s.btn_menu} onClick={toggleAside}>
-            <i className="fa-solid fa-bars"></i>
+            
           </div>
         </header>
       ) : (

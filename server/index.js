@@ -52,6 +52,7 @@ const PORT = 3000;
 API.get("/", (req, res) => {
   res.send("Hola pupi");
 });
+
 API.get("/plato/:id_plato", (req, res) => {
   const { id_plato } = req.params;
   
@@ -96,6 +97,7 @@ API.get("/pedido/:date", (req, res) => {
     res.json(results[0]);
   });
 });
+
 API.get("/categorias",(req,res)=>{
 
     DB.query("CALL ListarCategorias()",[],(err,results)=>{
@@ -105,6 +107,49 @@ API.get("/categorias",(req,res)=>{
         res.json(results[0]);
     })
 })
+
+API.get("/carrito/:id_usuario",(req,res)=>{
+  const { id_usuario } = req.params;
+  DB.query("CALL ObtenerCarritoUsuario(?)",[id_usuario],(err,results)=>{
+      if (err) {
+          return res.status(500).json({ message: "Database error", error: err.message });
+      }
+      res.json(results[0]);
+  })
+})
+API.get("/pedido/detalle/:id", (req, res) => {
+  const { id } = req.params;
+
+  DB.query(
+    `SELECT
+      pl.ID_plato,
+        pd.cantidad, 
+        pl.nombre AS nombre_plato, 
+        pl.precio 
+     FROM restaurante__pedido_detalle pd 
+     INNER JOIN restaurante__platos pl ON pd.FK_plato = pl.ID_plato 
+     WHERE pd.FK_pedido = ?`,
+    [id],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: "Error al obtener detalles del pedido", error: err.message });
+      }
+      res.json(results);
+    }
+  );
+});
+API.get('/usuarios', (req, res) => {
+  const query = 'SELECT ID_usuario, email, admin FROM restaurante__usuarios WHERE admin IN (1, 2)';
+  
+  DB.query(query, (err, results) => {
+      if (err) {
+          return res.status(500).json({ message: "Error al obtener los usuarios", error: err.message });
+      }
+      res.json(results);
+  });
+});
+
+
 
 /**
     8888888b.   .d88888b.   .d8888b. 88888888888 
@@ -116,6 +161,34 @@ API.get("/categorias",(req,res)=>{
     888        Y88b. .d88P Y88b  d88P    888     
     888         "Y88888P"   "Y8888P"     888 
  */
+// Endpoint para agregar un nuevo usuario
+API.post('/usuarios/agregar', (req, res) => {
+  const { email, password, admin } = req.body;
+
+  // Asegúrate de encriptar el password antes de guardarlo (ej. usando bcrypt)
+  const query = 'CALL agregar_usuario(?, ?, ?)';
+
+  DB.query(query, [email, password, admin], (err, results) => {
+      if (err) {
+          return res.status(200).json({ message: 'Error al agregar el usuario', error: err.message });
+      }
+      res.json({ message: 'Usuario agregado correctamente'});
+  });
+});
+
+API.post('/usuarios/actualizar/:id', (req, res) => {
+  const { id } = req.params;
+  const { admin } = req.body;
+
+  const query = 'UPDATE restaurante__usuarios SET admin = ? WHERE ID_usuario = ?';
+
+  DB.query(query, [admin, id], (err, results) => {
+      if (err) {
+          return res.status(500).json({ message: 'Error al actualizar el rol', error: err.message });
+      }
+      res.json({ message: 'Rol actualizado correctamente' });
+  });
+});
 // User login
 API.post("/login", (req, res) => {
   const { email_nick, password } = req.body;
@@ -138,13 +211,13 @@ API.post("/login", (req, res) => {
 
 // Register user
 API.post("/register", (req, res) => {
-  const { email, password } = req.body;
+  const { email_nick, password } = req.body;
   
-  if (!email || !password) {
+  if (!email_nick || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
 
-  DB.query("CALL register(?, ?)", [email, password], (err, results) => {
+  DB.query("CALL register(?, ?)", [email_nick, password], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err.message });
     }
@@ -224,6 +297,90 @@ API.post("/carrito/agregar", (req, res) => {
     res.json({ status: "success", message: "Order detail added successfully" });
   });
 });
+
+API.post("/comprar", (req, res) => {
+  const {id_pedido } = req.body;
+  
+  DB.query("CALL actualizar_carrito_a_0(?);", [id_pedido], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error", error: err.message });
+    }
+    res.json({ status: "success", message: "Order detail added successfully" });
+  });
+});
+
+API.post("/pedido/completar/:id", (req, res) => {
+  const { id } = req.params;
+
+  DB.query(
+    "UPDATE restaurante__pedido SET entregado = 1 WHERE ID_pedido = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: "Error al actualizar el pedido", error: err.message });
+      }
+      res.json({ message: "Pedido completado" });
+    }
+  );
+});
+// Endpoint para revertir un pedido a "En proceso"
+API.post("/pedido/revertir/:id", (req, res) => {
+  const { id } = req.params;
+
+  DB.query(
+    "UPDATE restaurante__pedido SET entregado = 0 WHERE ID_pedido = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        return res.status(500).json({ message: "Error al revertir el pedido", error: err.message });
+      }
+      res.json({ message: "Pedido revertido a 'En proceso'" });
+    }
+  );
+});
+
+/**
+8888888b.  8888888888 888      8888888888 88888888888 8888888888 
+888  "Y88b 888        888      888            888     888        
+888    888 888        888      888            888     888        
+888    888 8888888    888      8888888        888     8888888    
+888    888 888        888      888            888     888        
+888    888 888        888      888            888     888        
+888  .d88P 888        888      888            888     888        
+8888888P"  8888888888 88888888 8888888888     888     8888888888 
+ */
+
+API.delete("/carrito/eliminar/:id_detalle", (req, res) => {
+  const { id_detalle } = req.params;
+  DB.query("DELETE FROM restaurante__pedido_detalle WHERE ID_detalle = ?", [id_detalle], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Error al eliminar el item", error: err.message });
+    }
+    res.json({ status: "success", message: "Item eliminado correctamente" });
+  });
+});
+
+/**
+
+8888888b.  888     888 88888888888 
+888   Y88b 888     888     888     
+888    888 888     888     888     
+888   d88P 888     888     888     
+8888888P"  888     888     888     
+888        888     888     888     
+888        Y88b. .d88P     888     
+888         "Y88888P"      888     
+ */
+API.put("/carrito/actualizar", (req, res) => {
+  const { id_detalle, cantidad } = req.body;
+  DB.query("UPDATE restaurante__pedido_detalle SET cantidad = ? WHERE ID_detalle = ?", [cantidad, id_detalle], (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: "Error al actualizar la cantidad", error: err.message });
+    }
+    res.json({ status: "success", message: "Cantidad actualizada correctamente" });
+  });
+});
+
 
 API.listen(PORT, () => {
   console.log("Listening on port:", PORT);
