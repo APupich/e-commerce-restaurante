@@ -84,7 +84,7 @@ function Product() {
             />
           </label>
           <button className={s.button} onClick={handlePedido}>
-            Hacer Pedido
+            Agregar al carrito
           </button>
 
         </div>
