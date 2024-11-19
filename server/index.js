@@ -160,6 +160,35 @@ API.get('/usuarios', (req, res) => {
     888        Y88b. .d88P Y88b  d88P    888     
     888         "Y88888P"   "Y8888P"     888 
  */
+// Endpoint para agregar un nuevo producto
+API.post('/menu/create', (req, res) => {
+  const { nombre, foto_Url, precio, descripcion, category } = req.body;
+
+  // Insertar el nuevo producto en la base de datos (adaptar según tu base de datos)
+  const query = `INSERT INTO restaurante__platos (nombre, foto_Url, precio, descripcion,  FK_ID_categoria) VALUES (?, ?, ?, ?, ?)`;
+  DB.query(query, [nombre, foto_Url, precio, descripcion, category], (err, result) => {
+      if (err) {
+          return res.status(500).json({ success: false, message: 'Error al agregar el producto' });
+      }
+      res.status(200).json({ success: true, message: 'Producto agregado correctamente' });
+  });
+});
+
+API.post('/categorias', async (req, res) => {
+  const { categoria, img } = req.body; // Asegúrate de que el cliente envíe estos datos
+  if (!categoria || !img) {
+    return res.status(400).json({ success: false, message: "Faltan datos obligatorios" });
+  }
+  const query = 'INSERT INTO `restaurante__categorias`(`ID_categoria`, `nombre`, `img`) VALUES (NULL,?,?)';
+
+  DB.query(query, [categoria, img], (err, results) => {
+    if (err) {
+        return res.status(200).json({ message: 'Error al agregar el usuario', error: err.message });
+    }
+    res.json({ message: 'Categoria agregada correctamente'});
+});
+  
+});
 // Endpoint para agregar un nuevo usuario
 API.post('/usuarios/agregar', (req, res) => {
   const { email, password, admin } = req.body;

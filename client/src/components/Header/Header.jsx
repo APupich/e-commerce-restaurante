@@ -22,9 +22,6 @@ export default function Header() {
   const isLoggedIn = localStorage.getItem("user_id");
   const isAdmin = JSON.parse(localStorage.getItem("admin")) ;
   const isEmployee= JSON.parse(localStorage.getItem("employee")) ;
-  console.log(isAdmin) 
-  console.log(isEmployee)
-
   return (
     <>
       {!asideActive ? (
@@ -66,7 +63,7 @@ export default function Header() {
           <div className={s.login}>
             {isLoggedIn ? (
               <button className={s.boton} onClick={handleLogout}>
-                <i class="fa-solid fa-right-from-bracket"></i>
+                <i className="fa-solid fa-right-from-bracket"></i>
                 <span>Salir</span>
               </button>
             ) : (
